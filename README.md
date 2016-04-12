@@ -13,13 +13,13 @@ News-list
 
 Plugin for WebPal-powered applications
 
-A news-list is a list of news items where all data is kept in a table
+A news-list is a list of news items where all data is kept in an editable table with layout options
 
 Simply add this plugin to your WebPal extensions
 
 Insert a news-list into a page you are creating
 
- ![](__resources/imgQ7y4_N619kTY.PNG)
+![](__resources/imgQ7y4_N619kTY.PNG)
 
 ### Optional:
 
