@@ -24,8 +24,6 @@
 	
     <!--     home page layout -->
     <attribute name="widget-layout" use="oneof" type="wpString" value="title-date-text,title-date-synopsis,title-date-author-text,title-synopsis,title-text,title-date,title-only" help="Styling option for any news widget"/>
-    <attribute name="widget-items-per-row" use="oneof" type="wpString" value="1,2,3,4,6,12"/>
-    <attribute name="widget-col-size" use="oneof" type="wpString" value="sm,md,lg"/>
     
     <attribute name="date-format" use="oneof" type="wpString" value="yyyy-mm-dd,dd-mm-yyyy,yyyy/mm/dd,mm/dd/yyyy,dd/mm/yyyy,dd-Mon-yy,Weekday_Month_dd_yy,Weekday_dd_Month_yyyy,Wkd_Mon_dd_yyyy,Wkd_Mon_dd_yy,Month_dd_yyyy,Mon_dd_yyyy"/>
     <attribute name="include-social-bookmarking" use="oneof" type="wpString" value="yes,no"/>
