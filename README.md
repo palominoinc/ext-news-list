@@ -19,7 +19,7 @@ Simply add this plugin to your WebPal extensions
 
 Insert a news-list into a page you are creating
 
-![](__resources/imgQ7y4_N619kTY.PNG)
+ ![](__resources/imgQ7y4_N619kTY.PNG)
 
 ### Optional:
 
