@@ -24,6 +24,7 @@
 	
     <!--     home page layout -->
     <attribute name="widget-layout" use="oneof" type="wpString" value="title-date-text,title-date-synopsis,title-date-author-text,title-synopsis,title-text,title-date,title-only" help="Styling option for any news widget"/>
+
     
     <attribute name="date-format" use="oneof" type="wpString" value="yyyy-mm-dd,dd-mm-yyyy,yyyy/mm/dd,mm/dd/yyyy,dd/mm/yyyy,dd-Mon-yy,Weekday_Month_dd_yy,Weekday_dd_Month_yyyy,Wkd_Mon_dd_yyyy,Wkd_Mon_dd_yy,Month_dd_yyyy,Mon_dd_yyyy"/>
     <attribute name="include-social-bookmarking" use="oneof" type="wpString" value="yes,no"/>
@@ -40,10 +41,7 @@
   <complexType name="wpNews_v1" edittype="sheet" icon="newspaper.png" lockable="yes">
 	
 	<attribute name="id" use="auto" type="wpString" value="news"/>
-<!-- 	<attribute name="show-in" use="oneof" type="wpString" value="main,related1,related2,related3,related4,related5"/> -->
 	<attribute name="name" use="required" type="wpString" value="news"/>
-<!-- 	<attribute name="priority" use="oneof" type="wpString" value="regular,frontpage,breaking-news"/> -->
-
 	<attribute name="date" type="wpDate"/>
 	<element name="title" type="wpStringL"/>
 	<element name="synopsis" type="wpStringL"/>

@@ -140,7 +140,7 @@ extension-element-prefixes="exsl"
 
 							var i = 0;
 							
-							$(newslist + ' li').each(
+							$(newslist + ' .newsItemContainer').each(
 								function()
 								{
 								  	if (++i % <xsl:value-of select='$new-newslist/@items-per-page'/> == 0)
@@ -182,7 +182,7 @@ extension-element-prefixes="exsl"
 
 										var i = 0;
 										
-										$(newslist + ' li').each(
+										$(newslist + ' .newsItemContainer').each(
 											function()
 										{
 								  			if (++i % pageLimit == 0)
