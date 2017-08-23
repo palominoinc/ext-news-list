@@ -8,10 +8,12 @@
   <!--  ================= wpNewsList ================ -->
   <!--  == a list of new items                     == -->
   <!--  ============================================= -->
-  <complexType name="wpNewsList_v1" edittype="table" icon="table.png" lockable="yes">
+  <complexType name="wpNewsList_v1" edittype="sheet" icon="table.png" lockable="yes">
 	<attribute name="id" use="auto" type="wpString" value="newslst"/>
 	<attribute name="name" use="default" type="wpString" value="newslist"/>
+    
 	<attribute name="show-in" use="oneof" type="wpString" value="main,related1,related2,related3,related4,related5"/>
+    
     <attribute name="index-sort" use="oneof" type="wpString" value="unsorted,date"/>
 	<attribute name="sort-order" use="oneof" type="wpString" value="ascending,descending"/>
 	<attribute name="index" use="oneof" type="wpString" value="list-all,list-none,10-most-recent,5-most-recent"/>
@@ -30,14 +32,21 @@
     <attribute name="include-social-bookmarking" use="oneof" type="wpString" value="yes,no"/>
     <attribute name="social-bookmark-option" use="default" type="wpString" value=""
                help="Please type in social networks separated by commas or dashes. Options available are: facebook, twitter, linkedIn, googlePlus, email, print, compact. Or type 'random' to use any social bookmarks available."/>
-	<element name="news" type="wpNews_v1" minOccurs="1" />
+    
+    <element name="news-items" type="wpNewsListItems_v1" maxOccurs="1"/>
+<!-- 	<element name="news" type="wpNews_v1" minOccurs="1" /> -->
     
     <!-- Some information for the news list that is important for RSS feeds -->
-    <element name="title" type="wpString"/>
-    <element name="description" type="wpString"/>
+    <element name="title" type="wpStringL"/>
+    <element name="description" type="wpStringL"/>
     <element name="editor" type="wpString"/>
     <element name="webmaster" type="wpString"/>
     
+  </complexType>
+  <complexType name="wpNewsListItems_v1" edittype="table" icon="table.png" lockable="yes">
+    <attribute name="id" use="auto" type="wpString" value="newslst"/>
+    
+    <element name="news" type="wpNews_v1" minOccurs="1" />
   </complexType>
   
   <!--  ================== wpNews ================ -->

@@ -31,7 +31,7 @@ extension-element-prefixes="exsl"
 		<xsl:when test="./@index='5-most-recent'"><xsl:value-of select="number(5)"/></xsl:when>
 		<xsl:when test="./@index='most-recent'"><xsl:value-of select="number(1)"/></xsl:when>
 		<xsl:when test="./@index='list-none'"><xsl:value-of select="number(0)"/></xsl:when>
-		<xsl:otherwise><xsl:value-of select="count(news)"/></xsl:otherwise>
+		<xsl:otherwise><xsl:value-of select="count(news-items/news)"/></xsl:otherwise>
 	  </xsl:choose>
 	</xsl:variable>
     
@@ -76,7 +76,7 @@ extension-element-prefixes="exsl"
     <!-- get attribute name for sorting -->
     <xsl:variable name="sort-by">
       <xsl:choose>
-        <xsl:when test="$new-newslist/news[1]/@*[name()!=@index-sort]"><xsl:value-of select="'date'"/></xsl:when>
+        <xsl:when test="$new-newslist/news-items/news[1]/@*[name()!=@index-sort]"><xsl:value-of select="'date'"/></xsl:when>
         <xsl:otherwise><xsl:value-of select="$new-newslist/@index-sort"/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -87,13 +87,13 @@ extension-element-prefixes="exsl"
 
 
     <div id="{$newsID}" class="row newslistNode"> 
-      <xsl:apply-templates select="$new-newslist/news" mode="page">
+      <xsl:apply-templates select="$new-newslist/news-items/news" mode="page">
         <xsl:sort order="{@sort-order}" select="@*[name()=$sort-by]"/>
         <xsl:with-param name="max-items" select="$new-newslist/@max-items"/>
         <xsl:with-param name="items-per-page" select="$new-newslist/@items-per-page"/>
         <xsl:with-param name="items_per_row" select="$items_per_row"/>
         <xsl:with-param name="col_size" select="$col_size"/>
-        <xsl:with-param name="number-of-pages" select="ceiling(count($new-newslist/news) div $new-newslist/@items-per-page)"/>
+        <xsl:with-param name="number-of-pages" select="ceiling(count($new-newslist/news-items/news) div $new-newslist/@items-per-page)"/>
         <xsl:with-param name="layout" select="$new-newslist/@layout"/>
         <xsl:with-param name="readMoreTitle" select="$new-newslist/@readMoreTitle"/>
         <xsl:with-param name="date-format" select="$new-newslist/@date-format"/>
@@ -298,7 +298,7 @@ extension-element-prefixes="exsl"
   <!-- ============================ Individual news page template ============================== -->
   <!-- ========================================================================================= -->
   
-  <xsl:template match="news-list/news">
+  <xsl:template match="news-list/news-items/news">
 	
 	<xsl:variable name="news-tree">
 	  <xsl:apply-templates select="." mode="pre-process">
@@ -389,7 +389,7 @@ extension-element-prefixes="exsl"
   <!-- ========================================================================================= -->
   
   <!-- pre-process newslist -->
-  <xsl:template match="news-list" mode="pre-process">
+  <xsl:template match="news-list|news-list/news-items" mode="pre-process">
 	<xsl:param name="max-items"/>
 	<xsl:param name="index"/>
 	<xsl:param name="news-base-link"/>

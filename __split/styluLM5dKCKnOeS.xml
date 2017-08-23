@@ -89,7 +89,7 @@ extension-element-prefixes="exsl"
           
           <!-- beginning of event list -->
           <div id="widget{$newsID}" class="row newslistNode">
-            <xsl:apply-templates select="$new-newslist/news" mode="widget">
+            <xsl:apply-templates select="$new-newslist/news-items/news" mode="widget">
               <xsl:sort order="descending" select="./@date"/>
               <xsl:with-param name="max-items" select="$my-max-items"/>
               <xsl:with-param name="col-class" select="$widget_col_class"/>
