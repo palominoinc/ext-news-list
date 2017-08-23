@@ -32,6 +32,12 @@
                help="Please type in social networks separated by commas or dashes. Options available are: facebook, twitter, linkedIn, googlePlus, email, print, compact. Or type 'random' to use any social bookmarks available."/>
 	<element name="news" type="wpNews_v1" minOccurs="1" />
     
+    <!-- Some information for the news list that is important for RSS feeds -->
+    <element name="title" type="wpString"/>
+    <element name="description" type="wpString"/>
+    <element name="editor" type="wpString"/>
+    <element name="webmaster" type="wpString"/>
+    
   </complexType>
   
   <!--  ================== wpNews ================ -->
