@@ -6,39 +6,171 @@
 
 namespace NewsList\Source;
 
+use \DateTime;
+use \DateTimeZone;
+use \DateInterval;
+use \DOMElement;
+use Log;
 use \WebPal;
 
 class Newslist
 {
+  static $dateFormat = 'D, j M Y';
+  
   static function generateRSS($node_id)
   {
-    $node = self::retrieveNewslist($node_id);
+    $doc = self::retrieveNewslist($node_id);
     
-    if (is_null($node)) {
+    if (is_null($doc) || !$doc->hasChildNodes()) {
       return null;
     }
     
-    // TODO: Need to find out how to retrieve link to the page with the news list
-    $channel = 'INSERT NEWS LIST TITLE HERE';
-    
-    $items = array(
-      self::createItem('item title', 'item link', 'item description', 'item pub date', 'item link')
-    );
-    
-    
     return array(
-      'channel' => $channel,
-      'link' => 'INSERT LINK TO NEWS PAGE HERE',
-      'description' => 'INSERT NEWS LIST DESCRIPTION HERE',
-      'language' => 'en-us', // TODO: Find some way to find language
-      'pubDate' => 'TODO: Look up last publish date of the news list',
-      'docs' => 'http://blogs.law.harvard.edu/tech/rss', // Link to the RSS 2.0 spec
-      'generator' => 'WebPal 3',
-      'managingEditor' => 'TODO: Look up news list editor',
-      'webMaster' => 'TODO: Look up webmaster',
-      'items' => $items
+      'channel' => self::getTitle($doc),
+      'link' => self::createLink($doc),
+      'description' => self::getDescription($doc),
+      'language' => WebPal::language(),
+      'pubDate' => self::getLastPublishedDate($doc),
+      'managingEditor' => self::getEditor($doc),
+      'webMaster' => self::getWebMaster($doc),
+      'items' => self::getItems($doc)
     );
-    return "news rss for ${node_id}";
+  }
+  
+  // Returns the text content of the node with nodeName as an immediate child node of the news-list in the supplied doc
+  // Returns empty string if none found
+  static function getTextContent($doc, $nodeName)
+  {
+    $newslist = $doc->firstChild;
+    
+    if(!is_null($newslist)) {
+      for ($child = $newslist->firstChild; $child != null; $child = $child->nextSibling) {
+        if ($child instanceof DOMElement && $child->tagName == $nodeName) {
+          return $child->textContent;
+        }
+      }
+    }
+    
+    return '';
+  }
+  
+  static function getTitle($doc)
+  {
+    return self::getTextContent($doc, 'title');
+    
+  }
+  
+  // TODO: Create a link to the page containing the news-list
+  static function createLink($doc)
+  {
+    return '';
+  }
+  
+  static function getDescription($doc)
+  {
+    return self::getTextContent($doc, 'description');
+  }
+  
+  // TODO: Find the last published date
+  static function getLastPublishedDate($doc)
+  {
+    $dates = [];
+    
+    $newslist = $doc->firstChild;
+    
+    foreach ($newslist->getElementsByTagName('news') as $newsitem) {
+      $dateAttr = $newsitem->getAttribute('date');
+      $date = new DateTime($dateAttr, new DateTimeZone('EST'));
+      
+      $dates[] = $date;
+    }
+    
+    if (sizeof($dates) >= 1) {
+      // Sort dates in descending order
+      usort($dates, function($a, $b) {
+        if ($a == $b) {
+          return 0;
+        }
+        return $a < $b ? 1 : -1;
+      
+      });
+      return $dates[0]->format(self::$dateFormat);
+    }
+    
+    return '';
+  }
+  
+  static function getEditor($doc)
+  {
+    return self::getTextContent($doc, 'editor');
+  }
+  
+  static function getWebMaster($doc)
+  {
+    return self::getTextContent($doc, 'webmaster'); 
+  }
+  
+  // Returns an array of news items, which are arrays with information of the news item
+  // Returns an empty array if no news items exist
+  static function getItems($doc)
+  {
+    $items = array();
+    
+    $newslist = $doc->firstChild;
+    
+    if (!is_null($newslist)) {
+      foreach ($newslist->getElementsByTagName('news') as $newsitem) {
+        $title = '';
+        $link = '';
+        $desc = '';
+        $pubdate = '';
+        
+        for ($child = $newsitem->firstChild; !is_null($child); $child = $child->nextSibling) {
+          if ($child instanceof DOMElement) {
+            switch ($child->tagName) {
+              case 'title':
+                $title = $child->textContent;
+                break;
+              case 'synopsis': // use synopsis as description
+                $desc = $child->textContent;
+              default:
+                break;
+            }
+          }
+        }
+        
+        //Retrieve pubdate
+        $dateAttr = $newsitem->getAttribute('date');
+        $date = new DateTime($dateAttr, new DateTimeZone('EST'));
+        $pubdate = $date->format(self::$dateFormat);
+        
+        // TODO: Create link to the item
+        
+        $items[] = array(
+          'item' => self::createItem($title, $link, $desc, $pubdate, $link),
+          'date' => $date
+        );
+      }
+    }
+    
+    if (sizeof($items) > 0) {
+      // sort items in descending order
+      usort($items, function($a, $b) {
+        if ($a->date == $b->date) {
+          return 0;
+        }
+      
+        return $a->date < $b->date ? 1 : -1;
+      });
+    
+      // TODO: If necessary, trim the resulting array of items here
+    
+      return array_map(function($el) {
+        return $el['item'];
+      }, $items);
+    } else {
+      return $items;
+    }
   }
   
   static function createItem($title, $link, $description, $pubDate, $guid)
