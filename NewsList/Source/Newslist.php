@@ -60,10 +60,16 @@ class Newslist
     
   }
   
-  // TODO: Create a link to the page containing the news-list
+  // Create a link to the page containing the news-list
   static function createLink($doc)
   {
-    return '';
+    $id = $doc->childNodes->item(0)->getAttribute('id');
+    $path = self::retrievePathToNewslistPage($id);
+    
+    $protocol = "https://";
+    $host = $_SERVER['SERVER_NAME'];
+    $url = $protocol . $host . $path;
+    return $url;
   }
   
   static function getDescription($doc)
@@ -115,13 +121,14 @@ class Newslist
   static function getItems($doc)
   {
     $items = array();
+    $baseLink = self::createLink($doc);
     
     $newslist = $doc->firstChild;
     
     if (!is_null($newslist)) {
       foreach ($newslist->getElementsByTagName('news') as $newsitem) {
         $title = '';
-        $link = '';
+        $link = $baseLink . '/?node=' . $newsitem->getAttribute('name');
         $desc = '';
         $pubdate = '';
         
@@ -197,5 +204,20 @@ class Newslist
     } else {
       return $node;
     }
+  }
+  
+  // Get the website path to the page containing the newslist node
+  static function retrievePathToNewslistPage($node_id)
+  {
+    $path = '';
+    $ancestors = WebPal::webContent("//pages//*[@id='{$node_id}']/ancestor::page", array(
+      'raw' => true
+    ));
+    
+    foreach ($ancestors->childNodes as $ancestor) {
+      Log::info('ancestor:', [$ancestor->getAttribute('name')]);
+      $path .= '/' . $ancestor->getAttribute('name');
+    }
+    return $path;
   }
 }
