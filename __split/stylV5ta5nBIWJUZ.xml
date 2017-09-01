@@ -86,9 +86,9 @@ extension-element-prefixes="exsl"
     </xsl:variable>
 
 
-    <div id="{$newsID}" class="row newslistNode"> 
+    <div id="{$newsID}" class="row newslistNode">
       <xsl:apply-templates select="$new-newslist/news-items/news" mode="page">
-        <xsl:sort order="{@sort-order}" select="@*[name()=$sort-by]"/>
+        <xsl:sort select="php:function('strtotime',string(@*[name()=$sort-by]))" order="{@sort-order}" />
         <xsl:with-param name="max-items" select="$new-newslist/@max-items"/>
         <xsl:with-param name="items-per-page" select="$new-newslist/@items-per-page"/>
         <xsl:with-param name="items_per_row" select="$items_per_row"/>
@@ -98,6 +98,7 @@ extension-element-prefixes="exsl"
         <xsl:with-param name="readMoreTitle" select="$new-newslist/@readMoreTitle"/>
         <xsl:with-param name="date-format" select="$new-newslist/@date-format"/>
       </xsl:apply-templates>
+
     </div>
 
     <!-- pagination block -->

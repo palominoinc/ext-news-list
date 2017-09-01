@@ -156,15 +156,15 @@ class Newslist
     if (sizeof($items) > 0) {
       // sort items in descending order
       usort($items, function($a, $b) {
-        if ($a->date == $b->date) {
+        if ($a['date'] == $b['date']) {
           return 0;
         }
       
-        return $a->date < $b->date ? 1 : -1;
+        return $a['date'] < $b['date'] ? 1 : -1;
       });
     
       // TODO: If necessary, trim the resulting array of items here
-    
+      
       return array_map(function($el) {
         return $el['item'];
       }, $items);
