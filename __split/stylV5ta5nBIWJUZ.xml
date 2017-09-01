@@ -88,12 +88,20 @@ extension-element-prefixes="exsl"
       <xsl:value-of select="$new-newslist/@id"/>
     </xsl:variable>
      
-
+    <xsl:variable name="sorted-articles">
+      <xsl:for-each select="$new-newslist/news-items/news">
+        <xsl:sort select="php:function('strtotime',string(@*[name()=$sort-by]))" order="{$sort-order}" />
+        <xsl:copy-of select="."/>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="newest-article">
+      <xsl:apply-templates select="exsl:node-set($sorted-articles)/news[1]"/>
+    </xsl:variable>
 
 
     <div id="{$newsID}" class="row newslistNode">
       <xsl:if test="@display-most-recent-above-list = 'yes'">
-
+        <xsl:copy-of select="$newest-article"/>
         <h2>Blog Archive</h2>
       </xsl:if>
       <xsl:apply-templates select="$new-newslist/news-items/news" mode="page">
@@ -308,7 +316,7 @@ extension-element-prefixes="exsl"
   <!-- ============================ Individual news page template ============================== -->
   <!-- ========================================================================================= -->
   
-  <xsl:template match="news-list/news-items/news">
+  <xsl:template match="news-list/news-items/news|news">
 	
 	<xsl:variable name="news-tree">
 	  <xsl:apply-templates select="." mode="pre-process">
