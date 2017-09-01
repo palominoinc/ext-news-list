@@ -20,6 +20,7 @@
     <attribute name="layout" use="oneof" type="wpString" value="title-date-text,title-date-synopsis,title-date-author-text,title-synopsis,title-text,title-date,title-only"/>
 	<attribute name="items-per-page" use="oneof" type="wpString" value="all,5,10,20,30"/>
     <attribute name="items-per-row" use="oneof" type="wpString" value="1,2,3,4,6,12"/>
+    <attribute name="display-most-recent-above-list" use="oneof" type="wpString" value="no,yes"/>
     <attribute name="col-size" use="oneof" type="wpString" value="sm,md,lg"/>
 	<attribute name="enable-individual-page" use="oneof" type="wpString" value="yes,no"/>
     <attribute name="readMoreTitle" use="default" type="wpStringL" value="" help="Only available for synopsis"/>

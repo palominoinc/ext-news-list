@@ -80,15 +80,24 @@ extension-element-prefixes="exsl"
         <xsl:otherwise><xsl:value-of select="$new-newslist/@index-sort"/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sort-order">
+      <xsl:value-of select="@sort-order"/>
+    </xsl:variable>
 
     <xsl:variable name="newsID">
       <xsl:value-of select="$new-newslist/@id"/>
     </xsl:variable>
+     
+
 
 
     <div id="{$newsID}" class="row newslistNode">
+      <xsl:if test="@display-most-recent-above-list = 'yes'">
+
+        <h2>Blog Archive</h2>
+      </xsl:if>
       <xsl:apply-templates select="$new-newslist/news-items/news" mode="page">
-        <xsl:sort select="php:function('strtotime',string(@*[name()=$sort-by]))" order="{@sort-order}" />
+        <xsl:sort select="php:function('strtotime',string(@*[name()=$sort-by]))" order="{$sort-order}" />
         <xsl:with-param name="max-items" select="$new-newslist/@max-items"/>
         <xsl:with-param name="items-per-page" select="$new-newslist/@items-per-page"/>
         <xsl:with-param name="items_per_row" select="$items_per_row"/>
