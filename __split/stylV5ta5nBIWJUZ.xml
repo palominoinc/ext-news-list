@@ -324,6 +324,11 @@ extension-element-prefixes="exsl"
         <xsl:with-param name="news-base-link" select="''"/>
       </xsl:apply-templates>
     </xsl:variable>
+    
+    <xsl:comment>
+      <xsl:value-of select="name(.)"/>
+    
+    </xsl:comment>
 
     <xsl:variable name="news" select="exsl:node-set($news-tree)/news"/>
     <div class="singlePage">
