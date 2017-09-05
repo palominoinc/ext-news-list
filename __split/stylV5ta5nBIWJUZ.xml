@@ -337,7 +337,7 @@ extension-element-prefixes="exsl"
     <div class="singlePage">
 
       <h2>
-        <xsl:value-of select="$news/title"/>
+        <xsl:value-of select="./title"/>
       </h2>
 
       <div class="meta">
@@ -346,21 +346,21 @@ extension-element-prefixes="exsl"
           <xsl:variable name="formatted-date">
             <xsl:call-template name="format-date">
               <xsl:with-param name="format" select="../@date-format"/>
-              <xsl:with-param name="date" select="$news/@date"/>
+              <xsl:with-param name="date" select="./@date"/>
             </xsl:call-template>
           </xsl:variable>
           <div class="meta-date"><i class="fa fa-calendar"></i><xsl:value-of select="$formatted-date"/></div>
         </xsl:if>
         
         <!-- author here -->
-        <xsl:if test="$news/author">
-          <div class="meta-author"><i class="fa fa-user"></i><xsl:value-of select="$news/author"/></div>
+        <xsl:if test="./author">
+          <div class="meta-author"><i class="fa fa-user"></i><xsl:value-of select="./author"/></div>
         </xsl:if>
       </div>
 
       <!-- content here -->
-      <xsl:if test="$news/text">
-        <div class="entry"><xsl:apply-templates select="$news/text"/></div>
+      <xsl:if test="./text">
+        <div class="entry"><xsl:apply-templates select="./text"/></div>
       </xsl:if>
       
       <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
