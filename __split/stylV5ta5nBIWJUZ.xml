@@ -102,7 +102,7 @@ extension-element-prefixes="exsl"
     <div id="{$newsID}" class="row newslistNode">
       <xsl:if test="@display-most-recent-above-list = 'yes'">
         <xsl:copy-of select="$newest-article"/>
-        <h2>Blog Archive</h2>
+        <h2>Blog Archives</h2>
       </xsl:if>
       <xsl:apply-templates select="$new-newslist/news-items/news" mode="page">
         <xsl:sort select="php:function('strtotime',string(@*[name()=$sort-by]))" order="{$sort-order}" />
