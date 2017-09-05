@@ -320,7 +320,7 @@ extension-element-prefixes="exsl"
 	
 	<xsl:variable name="news-tree">
 	  <xsl:apply-templates select="." mode="pre-process">
-        <xsl:with-param name="index" select="../@index"/>
+        <xsl:with-param name="index" select="../../@index"/>
         <xsl:with-param name="news-base-link" select="''"/>
       </xsl:apply-templates>
     </xsl:variable>
