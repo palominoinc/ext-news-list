@@ -1,0 +1,13 @@
+{
+    "name": "Newslist",
+    "alias": "newslist",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Extensions\\Newslist\\Providers\\NewslistServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

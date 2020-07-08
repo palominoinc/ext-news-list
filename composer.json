@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/newslist",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Extensions\\Newslist\\Providers\\NewslistServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Extensions\\Newslist\\": ""
+        }
+    }
+}
