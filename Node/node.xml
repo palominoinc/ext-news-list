@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension groupaccess="all:r" id="nodeUjpU85DgSjv3" name="Newslist" webpalschematype="wpExtension">
-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="stylesheet-admin-stylV5ta5nBIWJUZ.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="stylesheet-stylV5ta5nBIWJUZ.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="node-schema-schec1zPX8nhs8FC.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="stylesheet-styluLM5dKCKnOeS.xml"/>
 </extension>
