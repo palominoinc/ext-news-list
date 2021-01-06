@@ -42,6 +42,9 @@
 	
 	<attribute name="id" use="auto" type="wpString" value="news"/>
 	<attribute name="name" use="required" type="wpString" value="news"/>
+    <attribute name="description" use="default" type="wpString" value="des"/>
+    <attribute name="keywords" use="default" type="wpString" value="key"/>
+
 	<attribute name="date" type="wpDate"/>
 	<element name="title" type="wpStringL"/>
     <element name="synopsis" type="wpStringL"/>
