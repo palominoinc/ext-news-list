@@ -275,7 +275,7 @@ extension-element-prefixes="exsl"
 
               <xsl:if test="./@link">
                 <a href="{$newsLink}" class="readMore" rel="bookmark" title="Read more">
-                  <xsl:value-of select="$readMoreTitle"/><xsl:text disable-output-escaping="yes"> </xsl:text><i class="fa fa-angle-double-right"></i>
+                  <xsl:value-of select="$readMoreTitle"/><xsl:text disable-output-escaping="yes"> </xsl:text><i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>
               </xsl:if>
 
@@ -323,12 +323,12 @@ extension-element-prefixes="exsl"
               <xsl:with-param name="date" select="$news/@date"/>
             </xsl:call-template>
           </xsl:variable>
-          <div class="meta-date"><i class="fa fa-calendar"></i><xsl:value-of select="$formatted-date"/></div>
+          <div class="meta-date"><i class="fa fa-calendar" aria-hidden="true"></i><xsl:value-of select="$formatted-date"/></div>
         </xsl:if>
         
         <!-- author here -->
         <xsl:if test="$news/author">
-          <div class="meta-author"><i class="fa fa-user"></i><xsl:value-of select="$news/author"/></div>
+          <div class="meta-author"><i class="fa fa-user" aria-hidden="true"></i><xsl:value-of select="$news/author"/></div>
         </xsl:if>
       </div>
 

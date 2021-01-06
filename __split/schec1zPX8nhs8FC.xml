@@ -44,9 +44,10 @@
 	<attribute name="name" use="required" type="wpString" value="news"/>
 	<attribute name="date" type="wpDate"/>
 	<element name="title" type="wpStringL"/>
-	<element name="synopsis" type="wpStringL"/>
-	<element name="author" type="wpString"/>
+    <element name="synopsis" type="wpStringL"/>
+    <element name="author" type="wpString"/>
 	<element name="text" type="wpHtml" minOccurs="1"/>
+    
 	
   </complexType>
   
